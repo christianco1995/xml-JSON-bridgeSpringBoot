@@ -5,11 +5,11 @@ Just a small proof of concept developed in java Spring Boot to simulate an integ
 ## Objective
 The only purpose of this API is to act as a two-way translator between modern and legacy systems.
 
-## 🛠️ Tech Stack
-Java 17
-Spring Boot 3
-Jackson Dataformat XML
-Maven
+## Tech Stack
+- Java 17
+- Spring Boot 3
+- Jackson Dataformat XML
+- Maven
 
 ## Endpoints
 
