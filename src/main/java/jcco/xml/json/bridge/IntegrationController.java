@@ -3,10 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package jcco.xml.json.integration;
+package jcco.xml.json.bridge;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -16,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/bridge")
 public class IntegrationController {
+	
+	private static final Logger log = LoggerFactory.getLogger(IntegrationController.class);
+	
 	// JSON -> XML
     @PostMapping(
         value = "/send-to-legacy",
@@ -23,8 +29,9 @@ public class IntegrationController {
         produces = MediaType.APPLICATION_XML_VALUE
     )
 	
-    public Client jsonToXml(@RequestBody Client client) {
-        // Adding an extra text just to test it works
+    public Client jsonToXml(@Valid @RequestBody Client client) {
+        log.info("Petition for JSON -> XML transformation recieved for client ID: {}", client.getId());
+		// Adding an extra text just to test it works
         client.setName(client.getName() + " (Processed to XML)");
         return client; 
     }
@@ -35,7 +42,9 @@ public class IntegrationController {
         consumes = MediaType.APPLICATION_XML_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Client xmlToJson(@RequestBody Client client) {
+	
+    public Client xmlToJson(@Valid @RequestBody Client client) {
+		log.info("Petition for XML -> JSON transformation recieved for client ID: {}", client.getId());
 		// Adding an extra text just to test it works
         client.setName(client.getName() + " (Processed to JSON)");
         return client; 
